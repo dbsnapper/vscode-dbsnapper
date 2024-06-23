@@ -2,11 +2,11 @@
   "name": "vscode-dbsnapper",
   "displayName": "vscode-dbsnapper",
   "description": "vscode-dbsnapper integrates DBSnapper features into VSCode",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "publisher": "dbsnapper",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/dbsnapper/vscode-dbsnapper"
   },
   "icon": "images/logo_200x200.png",
   "engines": {
@@ -107,9 +107,13 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
+    "vscode:prepublish": "npm run package",
+    "package": "npm run check-types && node esbuild.js --production",
+    "compile": "npm run check-types && node esbuild.js",
+    "check-types": "tsc --noEmit",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js"
@@ -120,6 +124,7 @@
     "@types/node": "20.14",
     "@types/vscode": "^1.90.0",
     "@vscode/test-electron": "^2.4.0",
+    "esbuild": "^0.21.5",
     "glob": "^10.4.2",
     "typescript": "^5.5.2"
   },

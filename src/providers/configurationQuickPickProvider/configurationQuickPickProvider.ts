@@ -29,6 +29,8 @@ export class ConfigurationQuickPickProvider {
   }
 
   public async execute(): Promise<void> {
+    const quickPickItems = BuildQuickPickItems();
+    this.showQuickPick(quickPickItems);
     quickPickSetupDBSnapper(this.context);
   }
 
@@ -43,8 +45,28 @@ export class ConfigurationQuickPickProvider {
         }
       });
       quickPick.onDidHide(() => quickPick.dispose());
-      quickPick.title = "Register DBSnapper Cloud";
+      quickPick.title = "Setup DBSnapper Cloud";
       quickPick.show();
     });
   }
+}
+
+function BuildQuickPickItems(): QuickPickItem[] {
+  const quickPickServiceProviders = BuildQuickPickServiceProviders();
+
+  return [...quickPickServiceProviders];
+}
+
+function BuildQuickPickServiceProviders(): QuickPickItem[] {
+  const quickPickItemTypes: QuickPickItem[] = [
+    {
+      label: "Service Provider",
+      kind: QuickPickItemKind.Separator,
+    },
+    {
+      label: "DBSnapper Platform",
+      description: "Setup DBSnapper Cloud",
+    },
+  ];
+  return quickPickItemTypes;
 }
