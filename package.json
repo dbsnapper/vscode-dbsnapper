@@ -1,0 +1,130 @@
+{
+  "name": "vscode-dbsnapper",
+  "displayName": "vscode-dbsnapper",
+  "description": "vscode-dbsnapper integrates DBSnapper features into VSCode",
+  "version": "1.0.0",
+  "publisher": "dbsnapper",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "icon": "images/logo_200x200.png",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Other",
+    "Data Science",
+    "Testing"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "panel": [
+        {
+          "id": "vscode-dbsnapper-output-panel",
+          "title": "vscode-dbsnapper-output",
+          "icon": "resources/turtle-right.svg"
+        }
+      ],
+      "activitybar": [
+        {
+          "id": "vscode-dbsnapper-sidebar-view",
+          "title": "vscode-dbsnapper",
+          "icon": "resources/turtle-right.svg"
+        }
+      ]
+    },
+    "views": {
+      "vscode-dbsnapper-sidebar-view": [
+        {
+          "id": "vscode-dbsnapper.targets.view.sidebar",
+          "name": "Targets",
+          "icon": "resources/turtle-right.svg",
+          "contextualTitle": "vscode-dbsnapper targets",
+          "when": "vscode-dbsnapper.extension.enabled"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "vscode-dbsnapper.configuration.show.quickpick",
+        "title": "Configure DBSnapper settings",
+        "category": "vscode-dbsnapper.register"
+      },
+      {
+        "command": "vscode-dbsnapper.targets.refresh",
+        "title": "Refresh",
+        "icon": {
+          "light": "resources/light/refresh.svg",
+          "dark": "resources/dark/refresh.svg"
+        }
+      },
+      {
+        "command": "vscode-dbsnapper.targets.snapshot.load",
+        "title": "Load"
+      }
+    ],
+    "configuration": {
+      "title": "vscode-dbsnapper",
+      "properties": {
+        "vscode-dbsnapper.defaultDstDbUrl": {
+          "type": "string",
+          "default": "postgres://user:pass@host:port/db",
+          "markdownDescription": "Default Destination Database URL for loads (will be overwritten)",
+          "format": "url",
+          "description": "Default Destination Database URL (will be overwritten)",
+          "order": 101
+        },
+        "vscode-dbsnapper.baseUrl": {
+          "type": "string",
+          "default": "https://app.dbsnapper.com/api/v3",
+          "markdownDescription": "Base URL for DBSnappe Cloud",
+          "format": "url",
+          "description": "Specifies the base url for the DBSnapper Cloud service.",
+          "order": 102
+        }
+      }
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "vscode-dbsnapper.targets.refresh",
+          "when": "view == vscode-dbsnapper.targets.view.sidebar",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "vscode-dbsnapper.targets.snapshot.load",
+          "when": "view == vscode-dbsnapper.targets.view.sidebar && viewItem == snapshot",
+          "group": "inline"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/crypto-js": "^4.2.2",
+    "@types/mocha": "^10.0.7",
+    "@types/node": "20.14",
+    "@types/vscode": "^1.90.0",
+    "@vscode/test-electron": "^2.4.0",
+    "glob": "^10.4.2",
+    "typescript": "^5.5.2"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "crypto-js": "^4.2.0"
+  }
+}
