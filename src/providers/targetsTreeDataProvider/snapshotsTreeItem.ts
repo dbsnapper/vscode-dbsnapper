@@ -15,23 +15,13 @@ export class SnapshotsTreeItem extends vscode.TreeItem {
     this.contextValue = "snapshot"; // for "when" clause in view/item/context
     // this.tooltip = `${this.label}`;
     this.description = `${this.type} snapshot`;
+    this.iconPath = {
+      light: vscode.Uri.file(
+        path.join(__dirname, "../../resources/light/dependency.svg")
+      ),
+      dark: vscode.Uri.file(
+        path.join(__dirname, "../../resources/dark/dependency.svg")
+      ),
+    };
   }
-  iconPath = {
-    light: path.join(
-      __filename,
-      "..",
-      "..",
-      "resources",
-      "light",
-      "dependency.svg"
-    ),
-    dark: path.join(
-      __filename,
-      "..",
-      "..",
-      "resources",
-      "dark",
-      "dependency.svg"
-    ),
-  };
 }
