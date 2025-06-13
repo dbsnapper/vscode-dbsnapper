@@ -2,7 +2,7 @@
   "name": "vscode-dbsnapper",
   "displayName": "vscode-dbsnapper",
   "description": "vscode-dbsnapper integrates DBSnapper features into VSCode",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "publisher": "dbsnapper",
   "repository": {
     "type": "git",
